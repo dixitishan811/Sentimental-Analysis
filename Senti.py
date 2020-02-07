@@ -50,14 +50,14 @@ my_stopwords = list(stopwords.words('english'))
 ps = PorterStemmer()
 temp_list = []
 temp_temp_list = []
-for i in range(160000):
-    temp_temp_list.append(TreebankWordTokenizer().tokenize(raw_train[i]))
-    for index, word in enumerate(temp_temp_list):
-        if word in my_stopwords:
-            temp_temp_list.remove(word)
-        temp_temp_list[index] = ps.stem(word)
-
-    temp_list.append(TreebankWordDetokenizer().detokenize(temp_temp_list))
+for i in range(1600000):
+  for word in TreebankWordTokenizer().tokenize(raw_train[i]) :
+    if word not in my_stopwords:
+      temp_list.append(ps.stem(word))
 
 
-print(raw_train[513641])
+   temp_temp_list.append(TreebankWordDetokenizer().detokenize(temp_list))
+   temp_list = []
+
+
+print(temp_temp_list)

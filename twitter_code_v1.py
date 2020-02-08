@@ -19,21 +19,21 @@ class Data:
 
         self.train_labels = None
         self.test_labels = None
-        self.create_label()
+        self.create_label(self.train_tweets, self.test_tweets)
 
     def get_tweets(self):
         raw_train = pd.read_csv('Sentiment140.csv', header=None, names=['Score', 'A', 'B', 'C', 'D', 'Tweet'])
         self.raw_tweets = pd.Series(raw_train['Tweet'], dtype='str')
 
-    def create_label(self):
+    def create_label(self, train_tweet_sequence, test_tweet_sequence):
         score = []
-        for tweets in self.train_tweets:
-            score.append(self.analyzer.polarity_scores(tweets)['compound'])
+        for tweet in train_tweet_sequence:
+            score.append(round(self.analyzer.polarity_scores(tweet)['compound']))
         self.train_labels = pd.Series(score)
 
         score = []
-        for tweets in self.test_tweets:
-            score.append(self.analyzer.polarity_scores(self.test_tweets)['compound'])
+        for tweet in test_tweet_sequence:
+            score.append(round(self.analyzer.polarity_scores(tweet)['compound']))
         self.test_labels = pd.Series(score)
 
 

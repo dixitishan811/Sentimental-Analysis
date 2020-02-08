@@ -74,12 +74,10 @@ class PreProcessing:
 
     def remove_stopwords_and_stem(self, data_ob):
         for tweet in data_ob.raw_tweets:
-            self.temp_list = TreebankWordTokenizer().tokenize(tweet)
-            for index, word in enumerate(self.temp_list):
-                word = self.ps.stem(word)
-                self.temp_list[index] = word
-                if word in self.my_stopwords:
-                    self.temp_list.remove(word)
+            self.temp_list = []
+            for word in TreebankWordTokenizer().tokenize(tweet):
+                if word.lower() not in self.mystopwords:
+                    self.temp_list.append(self.ps.stem(word))
 
             self.corpus.append(TreebankWordDetokenizer().detokenize(self.temp_list))
 

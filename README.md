@@ -14,7 +14,7 @@ I. PreProcessing :
     1.Count Vectorization
     2.LinearSVC - Non Convergent
     3.Gaussian RBF SVC
-    4.Linear splines kernel
+    4.Polynomial SVC
     
     
   III. Results :

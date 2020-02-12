@@ -1,4 +1,4 @@
-# Twitter Sentimental-Analysis using ML
+# Twitter Sentimental-Analysis
 Dataset being used : 
     [Sentiment 140](https://www.kaggle.com/kazanova/sentiment140)
 

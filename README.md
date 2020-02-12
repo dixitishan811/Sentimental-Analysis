@@ -15,8 +15,21 @@ I. PreProcessing :
     2.LinearSVC - Non Convergent
     3.Gaussian RBF SVC
     4.Polynomial SVC
+ 
+ III. Word Embeddings :
+      1.Word2Vec
+      2.Glove
+      3.Count Vectorizer
+      4.TF-IDF Vectorizer
     
     
-  III. Results :
+ IV. Results :
       1.Gaussian RBF
+      2.Polynomial SVC
+      3.DecisionTree
+   
+  V.Tests :
+  1.Confusion Matrix
+  2.AUC
+  3.Sklearn accuracy metric
  

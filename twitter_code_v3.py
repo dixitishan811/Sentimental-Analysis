@@ -17,6 +17,7 @@ from sklearn import tree
 from sklearn.feature_extraction.text import TfidfVectorizer
 import gensim
 from gensim.models import Word2Vec
+from textblob import TextBlob
 
 class Data:
     def __init__(self):
@@ -28,11 +29,7 @@ class Data:
 
         self.train_labels = None
         self.test_labels = None
-
-
-
-
-        # self.create_label(self.train_tweets, self.test_tweets)
+      # self.create_label(self.train_tweets, self.test_tweets)
 
 
     def get_tweets(self):
@@ -70,6 +67,8 @@ class PreProcessing:
         self.ps = PorterStemmer()
         self.corpus = []
         self.temp_list = []
+        self.temp_corpus = []
+        self.temp_temp_list = []
         self.tkcorpus = []
         self.remove_url(data_obj)
         self.remove_at(data_obj)
@@ -77,6 +76,7 @@ class PreProcessing:
         self.remove_new_line(data_obj)
         self.replace_emoticons(data_obj)
         self.remove_stopwords_and_stem(data_obj)
+        self.spell_correction()
 
 
     @staticmethod
@@ -116,12 +116,25 @@ class PreProcessing:
 
         for tweet in data_ob.raw_tweets:
             self.temp_list = []
+
             for word in TreebankWordTokenizer().tokenize(tweet):
                 if word not in self.my_stopwords:
                     self.temp_list.append(self.ps.stem(word))
 
+
+            self.temp_corpus.append(TreebankWordDetokenizer().detokenize(self.temp_list))
+
+    def spell_correction(self):
+
+        for tweet in self.temp_corpus:
+            self.tkcorpus.append(str(TextBlob(tweet).correct()))
+            for word in TreebankWordTokenizer().tokenize(tweet):
+                self.temp_temp_list.append(word)
             self.corpus.append(self.temp_list)
-            self.tkcorpus.append(TreebankWordDetokenizer().detokenize(self.temp_list))
+
+
+
+
 
 
 class Training:
@@ -136,8 +149,6 @@ class Training:
         self.model = gensim.models.Word2Vec(prep_obj.corpus, min_count=1, workers=4 ,size=100, window=5, sg=1)
         self.vect_tfidf = None
         self.feature = None
-        
-   #START
         vectorizer = TfidfVectorizer()
         self.vect_tfidf = vectorizer.fit_transform(prep_obj.tkcorpus)
 
@@ -165,7 +176,6 @@ class Training:
 
             vec = np.true_divide(vec, le)
             self.vector_corpus.append(vec.tolist())
-    #STOP
         self.vector_corpus = np.asarray(self.vector_corpus)
         self.X = self.vector_corpus[:80000]
         self.X_test = self.vector_corpus[80000:100000]

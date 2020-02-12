@@ -143,6 +143,7 @@ class Training:
         #self.words = list(self.model.wv.vocab)
         #self.glove()
         self.data = self.vect_tfidf
+   #START
         for word in self.feature:
                 self.embeddings_dict.update([(word,i)])
                 i+=1
@@ -163,6 +164,7 @@ class Training:
 
             vec = np.true_divide(vec, le)
             self.vector_corpus.append(vec.tolist())
+   #STOP
         self.vector_corpus = np.asarray(self.vector_corpus)
         self.X = self.vector_corpus[:80000]
         self.X_test = self.vector_corpus[80000:100000]

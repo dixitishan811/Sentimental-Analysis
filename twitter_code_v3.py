@@ -31,10 +31,6 @@ class Data:
 
 
 
-
-        # self.create_label(self.train_tweets, self.test_tweets)
-
-
     def get_tweets(self):
         raw_train = pd.read_csv('training.1600000.processed.noemoticon.csv', header=None,
                                 names=['Score', 'A', 'B', 'C', 'D', 'Tweet'])
@@ -50,7 +46,7 @@ class Data:
 
             x = self.analyzer.polarity_scores(tweet)['compound']
             score.append(round(x))
-            score.append(0)
+            
 
         self.train_labels = pd.Series(score)
 
@@ -107,7 +103,7 @@ class PreProcessing:
     @staticmethod
     def replace_emoticons(data_ob):
 
-        # data_ob.raw_tweets = pd.Series([emoji.demojize(sentence) for sentence in data_ob.raw_tweets], dtype='str')
+       
         for i in range(len(data_ob.raw_tweets)):
             data_ob.raw_tweets[i] = emoji.demojize(data_ob.raw_tweets[i])
         data_ob.raw_tweets = data_ob.raw_tweets.str.replace("_", ' ', case=False)
@@ -128,7 +124,6 @@ class Training:
     def __init__(self, prep_obj, data_obj):
         self.vector_corpus = []
         #self.vectorizer = CountVectorizer()
-
         #self.vector_corpus = self.vectorizer.fit_transform(prep_obj.corpus[:100000])
 
         self.model = gensim.models.Word2Vec(prep_obj.corpus, min_count=1, workers=4 ,size=50, window=5, sg=0)

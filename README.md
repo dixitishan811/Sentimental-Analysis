@@ -32,7 +32,7 @@ III. Word Embeddings :
       2.Polynomial SVC
       3.DecisionTree
    
-  V.Tests:
+  V. Tests:
       
       1.Confusion Matrix
       2.AUC

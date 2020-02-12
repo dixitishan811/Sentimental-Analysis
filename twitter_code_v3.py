@@ -136,6 +136,8 @@ class Training:
         self.model = gensim.models.Word2Vec(prep_obj.corpus, min_count=1, workers=4 ,size=100, window=5, sg=1)
         self.vect_tfidf = None
         self.feature = None
+        
+   #START
         vectorizer = TfidfVectorizer()
         self.vect_tfidf = vectorizer.fit_transform(prep_obj.tkcorpus)
 
@@ -163,6 +165,7 @@ class Training:
 
             vec = np.true_divide(vec, le)
             self.vector_corpus.append(vec.tolist())
+    #STOP
         self.vector_corpus = np.asarray(self.vector_corpus)
         self.X = self.vector_corpus[:80000]
         self.X_test = self.vector_corpus[80000:100000]

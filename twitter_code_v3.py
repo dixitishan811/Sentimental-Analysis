@@ -130,7 +130,7 @@ class PreProcessing:
 
         for tweet in self.temp_corpus:
             self.tkcorpus.append(str(TextBlob(tweet).correct()))
-            for word in TreebankWordTokenizer().tokenize(tweet):
+            for word in TreebankWordTokenizer().tokenize(str(TextBlob(tweet).correct())):
                 self.temp_temp_list.append(word)
             self.corpus.append(self.temp_list)
 

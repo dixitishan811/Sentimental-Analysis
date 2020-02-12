@@ -2,7 +2,6 @@
 Dataset being used : Sentiment 140
 
 I. PreProcessing :
-
   1. Remove URL
   2. Remove @
   3. Remove Apostrophe
@@ -12,14 +11,12 @@ I. PreProcessing :
   7. Stemming (PoterStemmer)
  
  II. Data Training :
- 
     1.Count Vectorization
     2.LinearSVC - Non Convergent
     3.Gaussian RBF SVC
     4.Polynomial SVC
  
  III. Word Embeddings :
- 
       1.Word2Vec
       2.Glove
       3.Count Vectorizer
@@ -27,14 +24,12 @@ I. PreProcessing :
     
     
  IV. Results :
- 
       1.Gaussian RBF
       2.Polynomial SVC
       3.DecisionTree
    
   V.Tests:
-  
-  1.Confusion Matrix
-  2.AUC
-  3.Sklearn accuracy metric
+      1.Confusion Matrix
+      2.AUC
+      3.Sklearn accuracy metric
  

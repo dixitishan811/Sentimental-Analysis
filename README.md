@@ -9,7 +9,7 @@ I. PreProcessing :
     4. Remove Newline
     5. Replace Emoticons with suitable text
     6. Remove stopwords
-    7. Stemming (PoterStemmer)
+    7. Stemming (PorterStemmer)
  
 II. Data Training :
   

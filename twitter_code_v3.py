@@ -14,7 +14,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import cross_val_score
 from sklearn import tree
-
+from sklearn.feature_extraction.text import TfidfVectorizer
 import gensim
 from gensim.models import Word2Vec
 
@@ -29,6 +29,10 @@ class Data:
         self.train_labels = None
         self.test_labels = None
 
+
+
+
+        # self.create_label(self.train_tweets, self.test_tweets)
 
 
     def get_tweets(self):
@@ -46,7 +50,7 @@ class Data:
 
             x = self.analyzer.polarity_scores(tweet)['compound']
             score.append(round(x))
-            
+
 
         self.train_labels = pd.Series(score)
 
@@ -103,7 +107,7 @@ class PreProcessing:
     @staticmethod
     def replace_emoticons(data_ob):
 
-       
+        # data_ob.raw_tweets = pd.Series([emoji.demojize(sentence) for sentence in data_ob.raw_tweets], dtype='str')
         for i in range(len(data_ob.raw_tweets)):
             data_ob.raw_tweets[i] = emoji.demojize(data_ob.raw_tweets[i])
         data_ob.raw_tweets = data_ob.raw_tweets.str.replace("_", ' ', case=False)
@@ -123,22 +127,42 @@ class PreProcessing:
 class Training:
     def __init__(self, prep_obj, data_obj):
         self.vector_corpus = []
+        self.embeddings_dict = {}
         #self.vectorizer = CountVectorizer()
+        i=0
+        j=0
         #self.vector_corpus = self.vectorizer.fit_transform(prep_obj.corpus[:100000])
 
-        self.model = gensim.models.Word2Vec(prep_obj.corpus, min_count=1, workers=4 ,size=50, window=5, sg=0)
+        self.model = gensim.models.Word2Vec(prep_obj.corpus, min_count=1, workers=4 ,size=100, window=5, sg=1)
+        self.vect_tfidf = None
+        self.feature = None
+        vectorizer = TfidfVectorizer()
+        self.vect_tfidf = vectorizer.fit_transform(prep_obj.tkcorpus)
 
-        self.words = list(self.model.wv.vocab)
-
-        for tweet in prep_obj.corpus:
+        self.feature = vectorizer.get_feature_names()
+        #self.words = list(self.model.wv.vocab)
+        #self.glove()
+        self.data = self.vect_tfidf
+        for word in self.feature:
+                self.embeddings_dict.update([(word,i)])
+                i+=1
+        print(self.embeddings_dict)
+        for  tweet in prep_obj.corpus:
             le = len(tweet)+1
-            vec = np.zeros((50))
+            vec = np.zeros((100))
+
             for word in tweet :
-                vec = np.add(vec,np.array(self.model.wv[word]))
-                vec = vec.reshape(50)
+                if word in self.embeddings_dict :
+                    u =self.embeddings_dict[word]
+                    print(u)
+                    temp = self.data[j,u]
+                    vec = np.add(vec, (np.array(self.model.wv[word]) * temp))
+                else :
+                    vec = np.add(vec, np.array(self.model.wv[word])*0.001 )
+            j += 1
+
             vec = np.true_divide(vec, le)
             self.vector_corpus.append(vec.tolist())
-
         self.vector_corpus = np.asarray(self.vector_corpus)
         self.X = self.vector_corpus[:80000]
         self.X_test = self.vector_corpus[80000:100000]
@@ -146,6 +170,29 @@ class Training:
         self.clf = None
         self.y_true = data_obj.test_labels
         self.y_pred = None
+
+
+
+
+
+    def glove(self):
+
+        with open("glove.twitter.27B.100d.txt", 'r', encoding="utf-8") as f:
+            for line in f:
+                values = line.split()
+                word = values[0]
+                vector = np.asarray(values[1:], "float32")
+                self.embeddings_dict[word] = vector
+
+    def word2vec(self):
+
+        with open("glove.twitter.27B.100d.txt", 'r', encoding="utf-8") as f:
+            for line in f:
+                values = line.split()
+                word = values[0]
+                vector = np.asarray(values[1:], "float32")
+                self.embeddings_dict[word] = vector
+
 
     def linear_SVC(self):
         self.clf = LinearSVC()
@@ -169,9 +216,6 @@ class Training:
         self.y_pred = self.clf.predict(self.X_test)
         print(accuracy_score(self.y_true, self.y_pred) * 100)
 
-    def cross_val(self, clf):
-        self.scores = cross_val_score(clf, self.X_test, self.y_true, cv=5)
-        print("Accuracy: %0.2f (+/- %0.2f)" % (self.scores.mean()))
 
     def auc(self):
         self.y_pred = self.clf.predict(self.X_test)
@@ -185,6 +229,9 @@ class Training:
     def confusion(self):
         self.y_pred = self.clf.predict(self.X_test)
         print(confusion_matrix(self.y_true, self.y_pred))
+
+
+
 
 
 

@@ -131,7 +131,7 @@ class Training:
 
         #self.vector_corpus = self.vectorizer.fit_transform(prep_obj.corpus[:100000])
 
-        self.model = gensim.models.Word2Vec(prep_obj.corpus, min_count=1, workers=4 ,size=100, window=5, sg=0)
+        self.model = gensim.models.Word2Vec(prep_obj.corpus, min_count=1, workers=4 ,size=50, window=5, sg=0)
 
         self.words = list(self.model.wv.vocab)
 

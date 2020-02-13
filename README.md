@@ -37,6 +37,6 @@ III. Word Embeddings :
   V. Tests:
       
       1. Confusion Matrix
-      2. AUC
+      2. AUC-ROC
       3. Sklearn accuracy metric
  

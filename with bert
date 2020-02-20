@@ -259,11 +259,11 @@ class Testing:
         print(confusion_matrix(self.Y_test, self.Y_pred))
 
 
-start_time = time.clock()
+start_time = time.process_time()
 dt = Data()
 pp = PreProcessing(dt, processing_size=10)
 we = WordEmbedding(pp, method='bert')
 tr = Training(dt, pp, we, train_size=8, method='dt')
 te = Testing(dt, pp, we, tr, test_size=2)
-end_time = time.clock()
+end_time = time.process_time()
 print("Time taken =", end_time - start_time)

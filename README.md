@@ -12,6 +12,7 @@ I. PreProcessing :
     6. Remove stopwords
     7. Stemming (PorterStemmer)
     8. Spell Correction
+    9. Regex Tokenization
  
 II. Data Training :
   
@@ -19,6 +20,7 @@ II. Data Training :
     2. LinearSVC - Non Convergent
     3. Gaussian RBF SVC
     4. Polynomial SVC
+    5. Decision Trees
  
 III. Word Embeddings :
   
@@ -26,6 +28,10 @@ III. Word Embeddings :
     2. Glove
     3. Count Vectorizer
     4. TF-IDF Vectorizer
+    5. Word2Vec with TF-IDF
+    6. BERT
+    7. BERT with TF-IDF
+    8. GPT-2
     
     
  IV. Results :

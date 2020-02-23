@@ -182,7 +182,9 @@ class WordEmbedding:
         token_maker = GPT2Tokenizer.from_pretrained('gpt2')
         for tweet in prep_obj.detokenized_corpus:
             text_index = token_maker.encode(tweet)
-            vector = np.sum(model.transformer.wte.weight[text_index, :], axis=0)
+            vector = (model.transformer.wte.weight[text_index, :])
+            vector = vector.detach().numpy()
+            vector = np.sum(vector, axis=0)
             self.vector_corpus.append(vector)
 
     def count_vectorizer(self, prep_obj):
@@ -324,4 +326,4 @@ print("\nTime taken =", end_time - start_time)
 print('\nnos_test_neg =', dt.nos_test_neg, '\tnos_train_neg =', dt.nos_train_neg)
 print('nos_test_neu =', dt.nos_test_neu, '\tnos_train_neu =', dt.nos_train_neu)
 print('nos_test_pos =', dt.nos_test_pos, '\tnos_train_pos =', dt.nos_train_pos)
-winsound.Beep(1000, 2000)
+winsound.Beep(3000, 2000)

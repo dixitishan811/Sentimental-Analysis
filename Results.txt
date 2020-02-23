@@ -9,7 +9,7 @@ Word2vec+decision tree
  [ 1818 10799  1886]
  [  332  1553   783]]
 
-
+===================================================================================================================================
 
 100k processed ,train=80000,test=20000
 Word2vec + decision tree
@@ -22,7 +22,7 @@ Word2vec + decision tree
 [[  900  1631   298]
  [ 1798 10906  1799]
  [  324  1521   823]]
-
+===================================================================================================================================
 
 100k processed, train = 80k, test = 20k
 w2v+dt+tfidf
@@ -34,7 +34,7 @@ w2v+dt+tfidf
 [[  913  1643   273]
  [ 1912 10653  1938]
  [  261  1638   769]]
-
+===================================================================================================================================
 
 100k processed ,train=80000,test=20000
 w2v+dt+tfidf+spell_correction
@@ -47,7 +47,7 @@ w2v+dt+tfidf+spell_correction
  [   57 13885    93]
  [   27  2859    33]]
 
-
+===================================================================================================================================
 
 100k processed ,train=80000,test=20000
 glove + dt
@@ -61,6 +61,7 @@ glove + dt
  [ 1785 10806  1912]
  [  296  1626   746]]
  
+ ===================================================================================================================================
  
  1 mil processed ,train=800000,test=200000[100d]
 glove + dt
@@ -72,3 +73,243 @@ glove + dt
 [[ 841 1810  361]
  [1941 9791 2061]
  [ 344 1902  949]]
+
+===================================================================================================================================
+
+20 Feb 2020
+	Used 1000 tweets (80:20 test:train ratio) 
+	Time taken = 725.875 sec
+	Labelling by VADER
+	Preprocessing - removed url, @, apostrophe, \n, stopwords
+			replace emoticons
+			stemming
+			spell correction
+			only kept words of form '\n'|' '[A-Za-z0-9]' '|'\n'
+	Word Enbedding - BERT 'bert_12_768_12' 'book_corpus_wiki_en_cased'
+	Training - Decision Tree
+	
+	Accuracy is : 57.49999999999999
+	
+	Area under curve :
+	1 0.51170524075552
+	0 0.5238486842105263
+	-1 0.45332905159494746
+
+	Confusion Matrix :
+	[[  7  19   1]
+	 [ 32 105  15]
+	 [  5  13   3]]
+
+===================================================================================================================================
+
+20 Feb 2020
+	Used 1000 tweets (80:20 test:train ratio) 
+	Time taken = 660.5 sec
+	Labelling by VADER
+	Preprocessing - removed url, @, apostrophe, \n, stopwords
+			replace emoticons
+			stemming
+			spell correction
+			treebank word tokenizer
+	Word Enbedding - BERT 'bert_12_768_12' 'book_corpus_wiki_en_cased'
+	Training - Decision Tree
+
+	Accuracy is : 55.50000000000001
+	
+	Area under curve :
+	1 0.5686553030303031
+	0 0.5138888888888888
+	-1 0.42166666666666663
+
+	Confusion Matrix :
+	[[11 17  2]
+	 [35 96 15]
+	 [ 4 16  4]]
+
+===================================================================================================================================
+
+20 Feb 2020
+	Used 1000 tweets (80:20 test:train ratio) 
+	Time taken = 1839.78125 sec
+	Labelling by VADER
+	Preprocessing - removed url, @, apostrophe, \n, stopwords
+			replace emoticons
+			stemming
+			spell correction
+			only kept words of form '\n'|' '[A-Za-z0-9]' '|'\n'
+	Word Enbedding - BERT 'bert_24_1024_16' 'book_corpus_wiki_en_cased'
+	Training - Decision Tree
+
+	Accuracy is : 50.753768844221106
+
+	Area under curve :
+	1 0.514446227929374
+	0 0.48005319148936165
+	-1 0.5196754112939084
+
+	Confusion Matrix :
+	[[ 5 18  3]
+	 [38 95 19]
+	 [ 3 17  1]]
+
+	nos_neg = 166
+	nos_neu = 735
+	nos_pos = 98
+
+===================================================================================================================================
+
+20 Feb 2020
+	Used 1000 tweets (80:20 test:train ratio) 
+	Time taken = 1787.140625 sec
+	Labelling by VADER
+	Preprocessing - removed url, @, apostrophe, \n
+			replace emoticons
+			spell correction
+			only kept words of form '\n'|' '[A-Za-z0-9]' '|'\n'
+	Word Enbedding - BERT 'bert_24_1024_16' 'book_corpus_wiki_en_cased'
+	Training - Decision Tree
+
+	Accuracy is : 54.773869346733676
+
+	Area under curve :
+	1 0.5230069555912252
+	0 0.5476221245799949
+	-1 0.4149513473053892
+
+	Confusion Matrix :
+	[[13 16  3]
+	 [35 93 18]
+	 [ 5 13  3]]
+
+	nos_neg = 196
+	nos_neu = 697
+	nos_pos = 106
+
+===================================================================================================================================
+
+20 Feb 2020
+	Used 1000 tweets (80:20 test:train ratio) 
+	Time taken = 780.078125 sec
+	Labelling by VADER
+	Preprocessing - removed url, @, apostrophe, \n
+			replace emoticons
+			spell correction
+			only kept words of form '\n'|' '[A-Za-z0-9]' '|'\n'
+	Word Enbedding - BERT 'bert_12_768_12' 'book_corpus_wiki_en_cased'
+	Training - Decision Tree
+
+	Accuracy is : 58.79396984924623
+
+	Area under curve :
+	1 0.5762439807383628
+	0 0.560416128198501
+	-1 0.359187874251497
+
+	Confusion Matrix :
+	[[13 16  3]
+	 [23 98 25]
+	 [ 3 12  6]]
+
+	Time taken = 780.078125
+
+	nos_neg = 196
+	nos_neu = 697
+	nos_pos = 106
+
+===================================================================================================================================
+
+20 Feb 2020
+	Used 5000 tweets (80:20 test:train ratio) 
+	Time taken = 3633.5 sec
+	Labelling by VADER
+	Preprocessing - removed url, @, apostrophe, \n
+			replace emoticons
+			spell correction
+			only kept words of form '\n'|' '[A-Za-z0-9]' '|'\n'
+	Word Enbedding - BERT 'bert_12_786_12' 'book_corpus_wiki_en_cased'
+	Training - Decision Tree
+
+	Accuracy is : 59.45945945945946
+
+	Area under curve :
+	1 0.5765439865785887
+	0 0.48044112640435777
+	-1 0.46433946928761727
+
+	Confusion Matrix :
+	[[ 37 102  19]
+	 [114 523  72]
+	 [ 19  79  34]]
+
+	Time taken = 3633.5
+
+	nos_test_neg = 158
+	nos_test_neu = 709
+	nos_test_pos = 132
+
+	nos_train_neg = 666
+	nos_train_neu = 2862
+	nos_train_pos = 472
+
+===================================================================================================================================
+
+20 Feb 2020
+	Used 1000 tweets (80:20 test:train ratio) 
+	Time taken = 718.546875 sec
+	Labelling by VADER
+	Preprocessing - removed url, @, apostrophe, \n, stopwords
+			replace emoticons
+			stemming
+			spell correction
+			only kept words of form '\n'|' '[A-Za-z0-9]' '|'\n'
+	Word Enbedding - BERT 'bert_12_786_12' 'book_corpus_wiki_en_cased'
+			 TF-IDF
+	Training - Decision Tree
+
+	Accuracy is : 59.2964824120603
+
+	Area under curve :
+	1 0.5626003210272873
+	0 0.5367019901783407
+	-1 0.40306886227544914
+
+	Confusion Matrix :
+[ 13  16   3]
+[ 30 102  14]
+[  3  15   3]
+
+	nos_test_neg = 32	nos_train_neg = 164
+	nos_test_neu = 146	nos_train_neu = 551
+	nos_test_pos = 21	nos_train_pos = 85
+
+===================================================================================================================================
+
+20 Feb 2020
+	Used 1000 tweets (80:20 test:train ratio) 
+	Time taken = 710.796875 sec
+	Labelling by VADER
+	Preprocessing - removed url, @, apostrophe, \n
+			replace emoticons
+			spell correction
+			only kept words of form '\n'|' '[A-Za-z0-9]' '|'\n'
+	Word Enbedding - BERT 'bert_12_786_12' 'book_corpus_wiki_en_cased'
+			 TF-IDF
+	Training - Decision Tree
+
+	Accuracy is : 57.286432160804026
+
+	Area under curve :
+	1 0.5454788657035848
+	0 0.5410312742310674
+	-1 0.40877619760479045
+
+	Confusion Matrix :
+	 - [11 19  2]
+	 0 [29 99 18]
+	 + [ 4 13  4]
+
+	nos_test_neg = 32	nos_train_neg = 164
+	nos_test_neu = 146	nos_train_neu = 551
+	nos_test_pos = 21	nos_train_pos = 85
+ 
+ ===================================================================================================================================

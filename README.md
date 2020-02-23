@@ -45,4 +45,7 @@ III. Word Embeddings :
       1. Confusion Matrix
       2. AUC-ROC
       3. Sklearn accuracy metric
+      4. Precision
+      5. Recall
+      6. F1 Score
  
